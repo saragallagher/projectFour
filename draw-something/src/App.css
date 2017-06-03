@@ -1,7 +1,3 @@
-.App {
-  text-align: center;
-}
-
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
@@ -16,10 +12,18 @@
 
 .App-intro {
   font-size: large;
+  text-align: center;
+}
+.App-sketch{
+  text-align: center;
 }
 
-.App-sketch{
-  border: 2px solid black;
+.App-nav{
+  width: 100%;
+  height: 20px;
+  background-color: #2f2f2f;
+  color: white;
+  padding: 20px
 }
 
 @keyframes App-logo-spin {
