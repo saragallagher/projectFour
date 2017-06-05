@@ -1,4 +1,4 @@
-export default function sketch (p){
+function sketch (p){
   p.setup = function(){
     p.createCanvas(600,400)
     p.background('red')
@@ -11,8 +11,11 @@ export default function sketch (p){
   }
   p.mouseDragged= function(){
     p.fill('black')
-
     p.ellipse(p.mouseX, p.mouseY, 5,5)
-
+  }
+  p.saveTheCanvas = function(){
+    p.saveCanvas('myCanvas', '.jpg')
   }
 }
+
+export default sketch
