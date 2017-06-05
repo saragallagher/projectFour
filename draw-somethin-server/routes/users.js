@@ -5,20 +5,26 @@ const
   User = require('../models/User.js'),
   serverAuth = require('../config/serverAuth.js')
 
-usersRouter.post('/login', (req, res) => {
-  User.findOne({email: req.body.email}, '+password', (err, user) => {
-    if(!user || !user.validPassowrd(req.body.password)){
-      return res.status(403).json({message: 'Invalid Credentials'})
-    }
-  if(user && user.validPassword(req.body.password)) {
-    const userData = user.toObject()
-    delete userData.password
+  usersRouter.post('/login', (req, res) => {
+    // when a user attempts to log in, try and find the user by the provided email:
+    User.findOne({email: req.body.email}, '+password',(err, user) => {
 
-    const token = serverAuth.createToken(userData)
-    res.json({token})
-  }
+      // if there is no user, or password is wrong, respond accordingly
+      if(!user || !user.validPassword(req.body.password)) {
+        return res.status(403).json({message: "invalid credentials"})
+      }
+
+      // if there is a user and password is correct,
+      // generate token, that includes user in the payload (without the password):
+      if(user && user.validPassword(req.body.password)) {
+        const userData = user.toObject()
+        delete userData.password
+
+        const token = serverAuth.createToken(userData)
+        res.json({token: token})
+      }
+    })
   })
-})
 
 usersRouter.route('/')
   .get(usersCtrl.index)
