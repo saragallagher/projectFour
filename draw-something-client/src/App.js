@@ -1,16 +1,14 @@
 import React, { Component } from 'react'
-import P5Wrapper from 'react-p5-wrapper'
-import sketch from './sketch'
 import clientAuth from './clientAuth'
 import LogIn from './Login'
 import SignUp from './SignUp'
+import Canvas from './Canvas'
 import './App.css'
 
 class App extends Component {
   constructor(props){
     super(props)
     this.state ={
-      stateSketch: sketch,
       currentUser: null,
       loggedIn: false,
       view: 'home'
@@ -63,20 +61,6 @@ class App extends Component {
 
   }
 
-  _saveCanvas(){
-    // credzzz: https://stackoverflow.com/questions/30694433/how-to-give-browser-save-image-as-option-to-button
-    var canvas = document.querySelector('canvas')
-    var gh = canvas.toDataURL('png')
-    var a = document.createElement('a')
-    a.href = gh
-    a.download = 'newSketch.png'
-    a.click()
-  }
-
-  _clearCanvas(){
-    console.log('hi there');
-  }
-
   render() {
 
     return (
@@ -98,13 +82,7 @@ class App extends Component {
         {{
           login: <LogIn onLogin={this._logIn.bind(this)} />,
           signup: <SignUp onSignup={this._signUp.bind(this)} />,
-          draw: <div className="App-sketch">
-            <div className='drawing'>
-              <P5Wrapper sketch={this.state.stateSketch}/>
-            </div>
-            <button id='clear' onClick={this._clearCanvas.bind(this)}>Clear</button>
-            <button onClick={this._saveCanvas.bind(this)}>Save</button>
-          </div>
+          draw: <Canvas />
         }[this.state.view]}
 
       </div>

@@ -48,6 +48,21 @@ const clientAuth = {
       delete axios.defaults.headers.common['x-access-token']
       resolve("bye.")
     })
+  },
+
+  getDrawing: () => {
+    return axios({
+      url: 'api/drawings',
+      method: 'get'
+    })
+  },
+
+  addDrawing: (newDrawing) => {
+    return axios({
+      url: '/api/drawings',
+      method: 'post',
+      data: newDrawing
+    })
   }
 }
 
