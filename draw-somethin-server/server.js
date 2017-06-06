@@ -4,7 +4,8 @@ const
   logger = require('morgan'),
   bodyParser = require('body-parser'),
   mongoose = require('mongoose'),
-  usersRoutes = require('./routes/users.js')
+  usersRoutes = require('./routes/users.js'),
+  drawingsRoutes = require('./routes/drawings.js'),
   cors = require('cors'),
   mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/project04',
   port = process.env.PORT || 3001
@@ -25,6 +26,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/users', usersRoutes)
+app.use('/api/drawings', drawingsRoutes)
 
 app.listen(port, (err) => {
   console.log(err || `Server running on ${port} 🎉`)
