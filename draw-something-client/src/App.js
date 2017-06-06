@@ -61,6 +61,10 @@ class App extends Component {
 
   }
 
+  _accountPreference(){
+    console.log('hey whats up hello')
+  }
+
   render() {
 
     return (
@@ -72,6 +76,9 @@ class App extends Component {
           )}
           {!this.state.loggedIn && (
             <button name='login' onClick={this._setView.bind(this)}>Log In</button>
+          )}
+          {this.state.loggedIn && (
+            <button name='logout' onClick={this._accountPreference.bind(this)}>Account Preferences</button>
           )}
           {this.state.loggedIn && (
             <button name='logout' onClick={this._logOut.bind(this)}>Log Out</button>

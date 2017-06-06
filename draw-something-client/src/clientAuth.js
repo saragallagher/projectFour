@@ -58,13 +58,22 @@ const clientAuth = {
   },
 
   addDrawing: (newDrawing) => {
+    console.log(newDrawing)
     return axios({
       url: '/api/drawings',
       method: 'post',
       data: newDrawing
     })
+  },
+
+  deleteDrawing: (id) =>{
+    return axios({
+      url: `api/drawings/${id}`,
+      method: 'delete'      
+    })
   }
 }
+
 
 clientAuth.setTokenHeader()
 export default clientAuth
