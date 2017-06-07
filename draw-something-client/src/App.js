@@ -43,13 +43,6 @@ class App extends Component {
     })
   }
 
-  _accountPref(user){
-    console.log('hi')
-    this.setState({
-      view: 'accountpref'
-    })
-  }
-
   _logOut() {
     clientAuth.logOut().then(message => {
       this.setState({
@@ -69,8 +62,13 @@ class App extends Component {
 
   }
 
-  _accountPreference(){
+  _accountPref(id){
     console.log('hey whats up hello')
+    clientAuth.updateCurrentUser(this.state.currentUser).then(res => {
+      this.setState({
+        view:'draw'
+      })
+    })
   }
 
   render() {
@@ -97,7 +95,7 @@ class App extends Component {
         {{
           login: <LogIn onLogin={this._logIn.bind(this)} />,
           signup: <SignUp onSignup={this._signUp.bind(this)} />,
-          accountpref: <AccountPreferences />,
+          accountpref: <AccountPreferences onAccountPref={this._accountPref.bind(this)}/>,
           draw: <Canvas />
         }[this.state.view]}
 

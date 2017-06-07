@@ -24,15 +24,15 @@ class Canvas extends Component{
 	}
 
 	mousedown(evt){
+		console.log(evt.clientX, evt.clientY-84)
 		this.mouse = {pressed: true}
 		this.ctx.beginPath()
-		this.ctx.moveTo(evt.clientX,evt.clientY-110)
+		this.ctx.moveTo(evt.clientX,evt.clientY-84)
 	}
-
 
 	mousemove(evt){
 		if(this.mouse.pressed){
-			this.ctx.lineTo(evt.clientX, evt.clientY-110)
+			this.ctx.lineTo(evt.clientX, evt.clientY)
 			this.ctx.stroke()
 		}
 	}
@@ -41,11 +41,15 @@ class Canvas extends Component{
 		this.mouse.pressed = false
 	}
 
+	mouseleave(){
+		this.mouse.pressed = false
+	}
+
 	_clearCanvas(){
 		this.ctx.save()
 		this.ctx.clearRect(0,0, this.c.width, this.c.height)
 	}
-	_saveCanvas(){
+	_saveCanvasToProf(){
 		var gh = this.c.toDataURL('png')
 		const newDrawing = {
 			url: gh
@@ -58,7 +62,6 @@ class Canvas extends Component{
 		this.ctx.save()
 		this.ctx.clearRect(0,0, this.c.width, this.c.height)
 	}
-
 	_deleteDrawing(id){
 		clientAuth.deleteDrawing(id).then(res => {
 			this.setState({
@@ -85,10 +88,11 @@ class Canvas extends Component{
 			onMouseDown={this.mousedown.bind(this)}
 			onMouseMove={this.mousemove.bind(this)}
 			onMouseUp={this.mouseup.bind(this)}
+			onMouseLeave={this.mouseleave.bind(this)}
 			ref="myCanvas" className="Canvas-style"/>
 			<div>
 			<button onClick={this._clearCanvas.bind(this)}> Clear</button>
-			<button onClick={this._saveCanvas.bind(this)}> Save</button>
+			<button onClick={this._saveCanvasToProf.bind(this)}> Save to Profile</button>
 			<div>
 				<h2>Canvas ToolKit</h2>
 				<button>Brush Size</button>

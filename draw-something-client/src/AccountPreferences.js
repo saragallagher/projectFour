@@ -1,21 +1,30 @@
 import React, { Component } from 'react'
 
 class AccountPreferences extends Component {
-  _handleSignup(evt){
+  _handleUpdate(evt){
     evt.preventDefault()
     console.log('the user will be updated...EVENTUALLY')
+    const updatedUser = {
+      name: this.refs.name.value,
+      email: this.refs.email.value
+    }
+    this.props.onAccountPref(updatedUser)
+  }
+
+  _handleDelete(id){
+    console.log('are you sure?')
   }
 
   render(){
     return(
       <div className='container'>
         <h2>Update Account</h2>
-        <form onSubmit={this._handleSignup.bind(this)}>
+        <form onSubmit={this._handleUpdate.bind(this)}>
           <input type='text' placeholder='Full Name' ref='name' />
           <input type='text' placeholder='Email' ref='email' />
-          <input type='password' placeholder='Password' ref='password' />
-          <button type='submit'>Create Account</button>
+          <button type='submit'>Update Account</button>
         </form>
+        <button onClick={this._handleDelete.bind(this)}>Delete Account? </button>
       </div>
     )
   }

@@ -42,6 +42,18 @@ const clientAuth = {
     return token ? jwt_decode(token) : null
   },
 
+  updateCurrentUser: (currentUser) =>{
+    console.log(currentUser)
+    return axios({
+      url: `api/users/${currentUser}`,
+      method: 'patch',
+      data: currentUser
+    })
+    .then(res => {
+      console.log(res)
+    })
+  },
+
   logOut: () => {
     return new Promise((resolve) => {
       localStorage.clear()
@@ -69,7 +81,7 @@ const clientAuth = {
   deleteDrawing: (id) =>{
     return axios({
       url: `api/drawings/${id}`,
-      method: 'delete'      
+      method: 'delete'
     })
   }
 }
