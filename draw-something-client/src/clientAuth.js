@@ -42,15 +42,11 @@ const clientAuth = {
     return token ? jwt_decode(token) : null
   },
 
-  updateCurrentUser: (currentUser) =>{
-    console.log(currentUser)
+  updateCurrentUser: (updatedUser, currentUser) =>{
     return axios({
-      url: `api/users/${currentUser}`,
+      url: `api/users/${currentUser._id}`,
       method: 'patch',
-      data: currentUser
-    })
-    .then(res => {
-      console.log(res)
+      data: updatedUser
     })
   },
 

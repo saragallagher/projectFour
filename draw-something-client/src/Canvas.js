@@ -10,7 +10,7 @@ class Canvas extends Component{
 		var c = this.refs.myCanvas
 		var ctx = c.getContext('2d')
 		ctx.strokeStyle= 'black'
-		ctx.lineWidth= 2
+		ctx.lineWidth= 10
 		ctx.lineJoin = ctx.lineCap = 'round'
 		this.c = c
 		this.mouse = {pressed: false}
@@ -24,7 +24,7 @@ class Canvas extends Component{
 	}
 
 	mousedown(evt){
-		console.log(evt.clientX, evt.clientY-84)
+		console.log(evt.clientX, evt.clientY)
 		this.mouse = {pressed: true}
 		this.ctx.beginPath()
 		this.ctx.moveTo(evt.clientX,evt.clientY-84)
@@ -32,7 +32,7 @@ class Canvas extends Component{
 
 	mousemove(evt){
 		if(this.mouse.pressed){
-			this.ctx.lineTo(evt.clientX, evt.clientY)
+			this.ctx.lineTo(evt.clientX, evt.clientY-84)
 			this.ctx.stroke()
 		}
 	}
@@ -77,7 +77,7 @@ class Canvas extends Component{
 			return(
 				<div key={i} className="Canvas-Images" >
 				<img  src={drawing.url} alt="canvas-drawing" />
-				<button onClick={this._deleteDrawing.bind(this, drawing._id)}>Delete </button>
+				<button onClick={this._deleteDrawing.bind(this, drawing._id)}>Delete</button>
 			</div>
 			)
 
@@ -95,10 +95,17 @@ class Canvas extends Component{
 			<button onClick={this._saveCanvasToProf.bind(this)}> Save to Profile</button>
 			<div>
 				<h2>Canvas ToolKit</h2>
-				<button>Brush Size</button>
-				<button>Brush Style</button>
-				<button>Brush Color</button>
-				<button>Eraser</button>
+				Brush Size: <input onChange={() => {this.ctx.lineWidth= this.refs.brushSize.value}} ref="brushSize" type="range" min="1" max="10"/>
+				<br />
+				Brush Style:
+				<br />
+				Brush Color:
+				<button onClick={() => {this.ctx.strokeStyle = 'black'}} >Black</button>
+				<button onClick={() => {this.ctx.strokeStyle = 'red'}} >Red</button>
+				<button onClick={() => {this.ctx.strokeStyle = 'blue'}} >Blue</button>
+				<button onClick={() => {this.ctx.strokeStyle = 'yellow'}} >Yellow</button>
+				<button onClick={() => {this.ctx.strokeStyle = 'white'}} >Eraser</button>
+				<br />
 			</div>
 
 			</div>

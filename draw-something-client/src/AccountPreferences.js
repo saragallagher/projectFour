@@ -3,10 +3,9 @@ import React, { Component } from 'react'
 class AccountPreferences extends Component {
   _handleUpdate(evt){
     evt.preventDefault()
-    console.log('the user will be updated...EVENTUALLY')
     const updatedUser = {
       name: this.refs.name.value,
-      email: this.refs.email.value
+      email: this.refs.email.value,
     }
     this.props.onAccountPref(updatedUser)
   }
