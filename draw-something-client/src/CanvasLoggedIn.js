@@ -2,25 +2,55 @@ import React, { Component } from 'react'
 import clientAuth from './clientAuth'
 import './App.css'
 
-class Canvas extends Component{
-	state = {
-		drawings: []
+class CanvasLoggedIn extends Component{
+	constructor(props){
+		super(props)
+
+		this.state = {
+			drawings: [],
+			red: 0,
+			green: 0,
+			blue: 0,
+			currentUser: null,
+		}
 	}
+
 	componentDidMount(){
+		const currentUser = clientAuth.getCurrentUser()
+
 		var c = this.refs.myCanvas
 		var ctx = c.getContext('2d')
-		ctx.strokeStyle= 'black'
+		ctx.strokeStyle= 'rgb('+ this.state.red+ ',' + this.state.green+ ',' + this.state.blue+ ')'
 		ctx.lineWidth= 10
 		ctx.lineJoin = ctx.lineCap = 'round'
 		this.c = c
 		this.mouse = {pressed: false}
 		this.ctx = ctx
-
 		clientAuth.getDrawing().then(res => {
 			this.setState({
-				drawings: res.data
+				drawings: res.data,
+				currentUser: currentUser
 			})
 		})
+	}
+
+	red(){
+		this.setState({
+			red: this.refs.r.value
+		})
+		this.ctx.strokeStyle= 'rgb('+ this.state.red+ ',' + this.state.green+ ',' + this.state.blue+ ')'
+	}
+	green(){
+		this.setState({
+			green: this.refs.g.value
+		})
+		this.ctx.strokeStyle= 'rgb('+ this.state.red+ ',' + this.state.green+ ',' + this.state.blue+ ')'
+	}
+	blue(){
+		this.setState({
+			blue: this.refs.b.value
+		})
+		this.ctx.strokeStyle= 'rgb('+ this.state.red+ ',' + this.state.green+ ',' + this.state.blue+ ')'
 	}
 
 	mousedown(evt){
@@ -31,7 +61,6 @@ class Canvas extends Component{
 		this.mouse = {pressed: true}
 		this.ctx.beginPath()
 		this.ctx.moveTo(x,y)
-
 	}
 
 	mousemove(evt){
@@ -42,16 +71,7 @@ class Canvas extends Component{
 
 			this.ctx.lineTo(x,y)
 			this.ctx.stroke()
-
 		}
-	}
-
-	mouseup(){
-		this.mouse.pressed = false
-	}
-
-	mouseleave(){
-		this.mouse.pressed = false
 	}
 
 	_clearCanvas(){
@@ -85,8 +105,10 @@ class Canvas extends Component{
 	}
 
 	render(){
+
 		const drawings = this.state.drawings.map((drawing, i) => {
 			return(
+
 				<div key={i} className="Canvas-Images" >
 				<img  src={drawing.url} alt="canvas-drawing" />
 				<button onClick={this._deleteDrawing.bind(this, drawing._id)}>Delete</button>
@@ -95,35 +117,41 @@ class Canvas extends Component{
 			)
 
 		})
+		const styles = {background: 'rgb('+ this.state.red+ ',' + this.state.green+ ',' + this.state.blue+ ')' }
 		return(
 			<div ref="canvasContainer">
 			<canvas
 			onMouseDown={this.mousedown.bind(this)}
 			onMouseMove={this.mousemove.bind(this)}
-			onMouseUp={this.mouseup.bind(this)}
-			onMouseLeave={this.mouseleave.bind(this)}
-			width='500'
-			height='300'
+			onMouseUp={() => {this.mouse.pressed = false}}
+			onMouseLeave={() => {this.mouse.pressed = false}}
+			width='600'
+			height='400'
 			ref="myCanvas" className="Canvas-style"/>
 			<div className='Canvas-btn'>
 			<button onClick={this._clearCanvas.bind(this)}> Clear</button>
 			<button onClick={this._saveCanvasToProf.bind(this)}> Save to Profile</button>
 			<div>
 				<h2>Canvas ToolKit</h2>
-				Brush Size: <input onChange={() => {this.ctx.lineWidth= this.refs.brushSize.value}} ref="brushSize" type="range" min="1" max="10"/>
+				Brush Size: <input onChange={() => {this.ctx.lineWidth= this.refs.brushSize.value}} ref="brushSize" type="range" min="0.5" max="20"/>
 				<br />
 				Brush Style:
 				<br />
-				Brush Color:
-				<button onClick={() => {this.ctx.strokeStyle = 'black'}} >Black</button>
-				<button onClick={() => {this.ctx.strokeStyle = 'red'}} >Red</button>
-				<button onClick={() => {this.ctx.strokeStyle = 'blue'}} >Blue</button>
-				<button onClick={() => {this.ctx.strokeStyle = 'yellow'}} >Yellow</button>
+				Eraser:
 				<button onClick={() => {this.ctx.strokeStyle = 'white'}} >Eraser</button>
+				<br />
+
+				Brush Color:
+				<br/>
+				<div className="preview-color" style={styles}> </div>
+				R: <input onChange={this.red.bind(this)}ref="r" type="range" min="1" max="255"/>
+				G: <input onChange={this.green.bind(this)}ref="g" type="range" min="1" max="255"/>
+				B: <input onChange={this.blue.bind(this)}ref="b" type="range" min="1" max="255"/>
 
 			</div>
 
 			</div>
+
 			<h2>My Drawings: </h2>
 			{this.state.drawings.length === 0 ? "Oh no! You don't have any drawings yet, bummer.": drawings}
 
@@ -132,4 +160,4 @@ class Canvas extends Component{
 	}
 }
 
-export default Canvas
+export default CanvasLoggedIn

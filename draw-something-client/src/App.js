@@ -3,7 +3,8 @@ import clientAuth from './clientAuth'
 import LogIn from './Login'
 import SignUp from './SignUp'
 import AccountPreferences from './AccountPreferences'
-import Canvas from './Canvas'
+import CanvasLoggedOut from './CanvasLoggedOut'
+import CanvasLoggedIn from './CanvasLoggedIn'
 import './App.css'
 
 class App extends Component {
@@ -96,7 +97,7 @@ class App extends Component {
           login: <LogIn onLogin={this._logIn.bind(this)} />,
           signup: <SignUp onSignup={this._signUp.bind(this)} />,
           accountpref: <AccountPreferences onAccountPref={this._accountPref.bind(this)}/>,
-          draw: <Canvas />
+          draw: this.state.loggedIn ? <CanvasLoggedIn /> : <CanvasLoggedOut />
         }[this.state.view]}
 
       </div>

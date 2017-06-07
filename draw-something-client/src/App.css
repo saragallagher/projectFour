@@ -48,6 +48,7 @@
 img{
   border: 2px solid black;
   display: block;
+  border-radius: 25px;
   width: 250px;
   height: 150px;
 }
@@ -66,7 +67,13 @@ img{
 }
 .sign-up{
   display: inline-block;
+}
 
+.preview-color{
+  margin: 0 auto;
+  width: 500px;
+  height: 30px;
+  border-radius: 25px;
 }
 
 @keyframes App-logo-spin {
