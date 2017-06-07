@@ -17,7 +17,6 @@ class CanvasLoggedIn extends Component{
 
 	componentDidMount(){
 		const currentUser = clientAuth.getCurrentUser()
-
 		var c = this.refs.myCanvas
 		var ctx = c.getContext('2d')
 		ctx.strokeStyle= 'rgb('+ this.state.red+ ',' + this.state.green+ ',' + this.state.blue+ ')'
@@ -79,7 +78,8 @@ class CanvasLoggedIn extends Component{
 		this.ctx.clearRect(0,0, this.c.width, this.c.height)
 	}
 	_saveCanvasToProf(){
-		var gh = this.c.toDataURL('png')
+		var gh = this.c.toDataURL('image/png')
+		console.log(gh)
 		const newDrawing = {
 			url: gh
 		}
@@ -100,9 +100,6 @@ class CanvasLoggedIn extends Component{
 			})
 		})
 	}
-	_editDrawing(id){
-		console.log('something will eventually happen here')
-	}
 
 	render(){
 
@@ -112,7 +109,7 @@ class CanvasLoggedIn extends Component{
 				<div key={i} className="Canvas-Images" >
 				<img  src={drawing.url} alt="canvas-drawing" />
 				<button onClick={this._deleteDrawing.bind(this, drawing._id)}>Delete</button>
-				<button onClick={this._editDrawing.bind(this, drawing._id)}>Edit</button>
+				{/* <button onClick={this._editDrawing.bind(this, drawing._id)}>Edit</button> */}
 			</div>
 			)
 

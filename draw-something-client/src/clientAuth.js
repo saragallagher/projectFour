@@ -64,6 +64,12 @@ const clientAuth = {
       method: 'get'
     })
   },
+  getAllDrawings: () => {
+    return axios({
+      url: 'api/drawings/all',
+      method: 'get'
+    })
+  },
 
   addDrawing: (newDrawing) => {
     console.log(newDrawing)

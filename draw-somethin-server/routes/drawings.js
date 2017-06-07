@@ -4,8 +4,15 @@ const
   authorize = require('../config/serverAuth.js').authorize,
   drawingRouter = new express.Router()
 
+  drawingRouter.route('/all')
+  .get ((req,res)=> {
+    Drawing.find({}).sort('createdAt').exec((err,drawings) =>{
+      res.json(drawings)
+    })
+  })
 
 drawingRouter.use(authorize)
+
 
 drawingRouter.route('/')
   .get((req, res) => {

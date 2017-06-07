@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import clientAuth from './clientAuth'
 import LogIn from './Login'
 import SignUp from './SignUp'
+import Explore from './Explore'
 import AccountPreferences from './AccountPreferences'
 import CanvasLoggedOut from './CanvasLoggedOut'
 import CanvasLoggedIn from './CanvasLoggedIn'
@@ -77,7 +78,11 @@ class App extends Component {
     return (
       <div className="App">
         <nav className="App-nav">
-          {this.state.loggedIn ? this.state.currentUser.name : 'Not Logged In'}
+
+          {this.state.loggedIn ? this.state.currentUser.name : ''}
+          <button name='draw' onClick={this._setView.bind(this)}>Drawing Board</button>
+          <button name='explore' onClick={this._setView.bind(this)}>Explore</button>
+
           {!this.state.loggedIn && (
             <button name='signup' onClick={this._setView.bind(this)}>Sign Up</button>
           )}
@@ -90,6 +95,7 @@ class App extends Component {
           {this.state.loggedIn && (
             <button name='logout' onClick={this._logOut.bind(this)}>Log Out</button>
           )}
+
         </nav>
 
         <h2 className="App-intro">Draw Somethin'</h2>
@@ -97,7 +103,8 @@ class App extends Component {
           login: <LogIn onLogin={this._logIn.bind(this)} />,
           signup: <SignUp onSignup={this._signUp.bind(this)} />,
           accountpref: <AccountPreferences onAccountPref={this._accountPref.bind(this)}/>,
-          draw: this.state.loggedIn ? <CanvasLoggedIn /> : <CanvasLoggedOut />
+          draw: this.state.loggedIn ? <CanvasLoggedIn /> : <CanvasLoggedOut />,
+          explore: <Explore />
         }[this.state.view]}
 
       </div>
