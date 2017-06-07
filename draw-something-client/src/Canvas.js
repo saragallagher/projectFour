@@ -24,16 +24,25 @@ class Canvas extends Component{
 	}
 
 	mousedown(evt){
-		console.log(evt.clientX, evt.clientY)
+		const boundingRect = this.refs.myCanvas.getBoundingClientRect()
+		const x = evt.clientX- boundingRect.left
+		const y = evt.clientY-boundingRect.top
+
 		this.mouse = {pressed: true}
 		this.ctx.beginPath()
-		this.ctx.moveTo(evt.clientX,evt.clientY-84)
+		this.ctx.moveTo(x,y)
+
 	}
 
 	mousemove(evt){
 		if(this.mouse.pressed){
-			this.ctx.lineTo(evt.clientX, evt.clientY-84)
+			const boundingRect = this.refs.myCanvas.getBoundingClientRect()
+			const x = evt.clientX- boundingRect.left
+			const y = evt.clientY-boundingRect.top
+
+			this.ctx.lineTo(x,y)
 			this.ctx.stroke()
+
 		}
 	}
 
@@ -71,6 +80,9 @@ class Canvas extends Component{
 			})
 		})
 	}
+	_editDrawing(id){
+		console.log('something will eventually happen here')
+	}
 
 	render(){
 		const drawings = this.state.drawings.map((drawing, i) => {
@@ -78,19 +90,22 @@ class Canvas extends Component{
 				<div key={i} className="Canvas-Images" >
 				<img  src={drawing.url} alt="canvas-drawing" />
 				<button onClick={this._deleteDrawing.bind(this, drawing._id)}>Delete</button>
+				<button onClick={this._editDrawing.bind(this, drawing._id)}>Edit</button>
 			</div>
 			)
 
 		})
 		return(
-			<div>
+			<div ref="canvasContainer">
 			<canvas
 			onMouseDown={this.mousedown.bind(this)}
 			onMouseMove={this.mousemove.bind(this)}
 			onMouseUp={this.mouseup.bind(this)}
 			onMouseLeave={this.mouseleave.bind(this)}
+			width='500'
+			height='300'
 			ref="myCanvas" className="Canvas-style"/>
-			<div>
+			<div className='Canvas-btn'>
 			<button onClick={this._clearCanvas.bind(this)}> Clear</button>
 			<button onClick={this._saveCanvasToProf.bind(this)}> Save to Profile</button>
 			<div>
@@ -105,7 +120,7 @@ class Canvas extends Component{
 				<button onClick={() => {this.ctx.strokeStyle = 'blue'}} >Blue</button>
 				<button onClick={() => {this.ctx.strokeStyle = 'yellow'}} >Yellow</button>
 				<button onClick={() => {this.ctx.strokeStyle = 'white'}} >Eraser</button>
-				<br />
+
 			</div>
 
 			</div>

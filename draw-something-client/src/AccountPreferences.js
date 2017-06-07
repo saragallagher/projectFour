@@ -10,10 +10,6 @@ class AccountPreferences extends Component {
     this.props.onAccountPref(updatedUser)
   }
 
-  _handleDelete(id){
-    console.log('are you sure?')
-  }
-
   render(){
     return(
       <div className='container'>
@@ -23,7 +19,6 @@ class AccountPreferences extends Component {
           <input type='text' placeholder='Email' ref='email' />
           <button type='submit'>Update Account</button>
         </form>
-        <button onClick={this._handleDelete.bind(this)}>Delete Account? </button>
       </div>
     )
   }

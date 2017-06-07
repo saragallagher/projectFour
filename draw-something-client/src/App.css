@@ -39,21 +39,26 @@
   height: 300px;
 }
 .Canvas-style{
-  /*margin: 0 auto;
-  display: block;*/
+  margin: 0 auto;
+  display: block;
   border: 2px solid black;
-  /*border-radius: 25px;*/
-  width: 500px;
-  height: 300px;
+  border-radius: 25px;
+
 }
 img{
   border: 2px solid black;
   display: block;
+  width: 250px;
+  height: 150px;
 }
 
 .Canvas-Images{
   display: inline-block;
   margin: 5px;
+}
+.Canvas-btn{
+  margin: 0 auto;
+  text-align: center;
 }
 
 .LogIn-Canvas{
@@ -61,7 +66,7 @@ img{
 }
 .sign-up{
   display: inline-block;
-  
+
 }
 
 @keyframes App-logo-spin {
