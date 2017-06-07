@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import clientAuth from './clientAuth'
 import LogIn from './Login'
 import SignUp from './SignUp'
+import AccountPreferences from './AccountPreferences'
 import Canvas from './Canvas'
 import './App.css'
 
@@ -42,6 +43,13 @@ class App extends Component {
     })
   }
 
+  _accountPref(user){
+    console.log('hi')
+    this.setState({
+      view: 'accountpref'
+    })
+  }
+
   _logOut() {
     clientAuth.logOut().then(message => {
       this.setState({
@@ -78,7 +86,7 @@ class App extends Component {
             <button name='login' onClick={this._setView.bind(this)}>Log In</button>
           )}
           {this.state.loggedIn && (
-            <button name='logout' onClick={this._accountPreference.bind(this)}>Account Preferences</button>
+            <button name='accountpref' onClick={this._setView.bind(this)}>Account Preferences</button>
           )}
           {this.state.loggedIn && (
             <button name='logout' onClick={this._logOut.bind(this)}>Log Out</button>
@@ -89,6 +97,7 @@ class App extends Component {
         {{
           login: <LogIn onLogin={this._logIn.bind(this)} />,
           signup: <SignUp onSignup={this._signUp.bind(this)} />,
+          accountpref: <AccountPreferences />,
           draw: <Canvas />
         }[this.state.view]}
 

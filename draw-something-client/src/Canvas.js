@@ -47,8 +47,6 @@ class Canvas extends Component{
 	}
 	_saveCanvas(){
 		var gh = this.c.toDataURL('png')
-		// var lastDrawing = document.getElementById('last-drawing')
-		// lastDrawing.src = gh
 		const newDrawing = {
 			url: gh
 		}
@@ -62,7 +60,6 @@ class Canvas extends Component{
 	}
 
 	_deleteDrawing(id){
-
 		clientAuth.deleteDrawing(id).then(res => {
 			this.setState({
 				drawings: this.state.drawings.filter((drawing) => {
@@ -76,7 +73,7 @@ class Canvas extends Component{
 		const drawings = this.state.drawings.map((drawing, i) => {
 			return(
 				<div key={i} className="Canvas-Images" >
-				<img  src={drawing.url} />
+				<img  src={drawing.url} alt="canvas-drawing" />
 				<button onClick={this._deleteDrawing.bind(this, drawing._id)}>Delete </button>
 			</div>
 			)
@@ -92,9 +89,18 @@ class Canvas extends Component{
 			<div>
 			<button onClick={this._clearCanvas.bind(this)}> Clear</button>
 			<button onClick={this._saveCanvas.bind(this)}> Save</button>
+			<div>
+				<h2>Canvas ToolKit</h2>
+				<button>Brush Size</button>
+				<button>Brush Style</button>
+				<button>Brush Color</button>
+				<button>Eraser</button>
+			</div>
+
 			</div>
 			<h2>My Drawings: </h2>
-			{drawings}
+			{this.state.drawings.length === 0 ? "Oh no! You don't have any drawings yet, bummer.": drawings}
+
 			</div>
 			)
 	}
