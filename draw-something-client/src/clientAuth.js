@@ -32,13 +32,14 @@ const clientAuth = {
       data: credentials
     })
     .then(res => {
-      if(res.data.token) {
+     if (res.data.token) {
         localStorage.setItem('token', res.data.token)
         clientAuth.setTokenHeader()
         return jwt_decode(res.data.token)
       } else {
         return false
       }
+
     })
   },
 
@@ -94,7 +95,7 @@ const clientAuth = {
 
   updateDrawing: (updatedDrawing) => {
     console.log(updatedDrawing)
-    
+
   },
 
   deleteDrawing: (id) =>{

@@ -3,6 +3,7 @@ import clientAuth from './clientAuth'
 import LogIn from './Login'
 import SignUp from './SignUp'
 import Explore from './Explore'
+import ExploreLoggedIn from './ExploreLoggedIn'
 import AccountPreferences from './AccountPreferences'
 import CanvasLoggedOut from './CanvasLoggedOut'
 import CanvasLoggedIn from './CanvasLoggedIn'
@@ -37,11 +38,12 @@ class App extends Component {
 
   _logIn(credentials) {
     clientAuth.logIn(credentials).then(user => {
-      this.setState({
-        currentUser: user,
-        loggedIn: true,
-        view: 'draw'
-      })
+        this.setState({
+          currentUser: user,
+          loggedIn: true,
+          view: 'draw'
+        })
+
     })
   }
 
@@ -104,7 +106,7 @@ class App extends Component {
           signup: <SignUp onSignup={this._signUp.bind(this)} />,
           accountpref: <AccountPreferences onAccountPref={this._accountPref.bind(this)}/>,
           draw: this.state.loggedIn ? <CanvasLoggedIn /> : <CanvasLoggedOut />,
-          explore: <Explore />
+          explore:this.state.loggedIn ? <ExploreLoggedIn /> : <Explore />
         }[this.state.view]}
       </div>
       </div>
