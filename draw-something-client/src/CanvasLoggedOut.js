@@ -45,7 +45,6 @@ class CanvasLoggedOut extends Component{
 			width='600'
 			height='400'
 			ref="myCanvas" className="Canvas-style"/>
-			<p>To Draw cool stuff and save 'n shit log in!</p>
 			</div>
 			)
 	}
