@@ -463,6 +463,10 @@ img{
 .sign-up{
   display: inline-block;
 }
+.logged-out{
+  margin: 0 auto;
+  display: block;
+}
 
 .preview-color{
   width: 200px;

@@ -20,7 +20,7 @@ class CanvasLoggedIn extends Component{
 		var c = this.refs.myCanvas
 		var ctx = c.getContext('2d')
 		ctx.strokeStyle= 'rgb('+ this.state.red+ ',' + this.state.green+ ',' + this.state.blue+ ')'
-		ctx.lineWidth= 10
+		ctx.lineWidth= 30
 		ctx.lineJoin = ctx.lineCap = 'round'
 		this.c = c
 		this.mouse = {pressed: false}
@@ -120,7 +120,7 @@ class CanvasLoggedIn extends Component{
 				<div className="row">
 					<div className="five columns">
 						<h2>Canvas ToolKit</h2>
-						Brush Size: <input onChange={() => {this.ctx.lineWidth= this.refs.brushSize.value}} ref="brushSize" type="range" min="0.5" max="20"/>
+						Brush Size: <input onChange={() => {this.ctx.lineWidth= this.refs.brushSize.value}} ref="brushSize" type="range" min="0.5" max="30"/>
 						<br />
 						{/* Brush Style:
 							<br /> */}
@@ -132,7 +132,7 @@ class CanvasLoggedIn extends Component{
 							<br/>
 							G: <input onChange={this.green.bind(this)}ref="g" type="range" min="1" max="255"/>
 							<br/>
-							
+
 							B: <input onChange={this.blue.bind(this)}ref="b" type="range" min="1" max="255"/>
 							<br />
 

@@ -33,6 +33,10 @@ class CanvasLoggedOut extends Component{
 			this.ctx.stroke()
 		}
 	}
+	_clearCanvas(){
+		this.ctx.save()
+		this.ctx.clearRect(0,0, this.c.width, this.c.height)
+	}
 
 	render(){
 		return(
@@ -44,7 +48,9 @@ class CanvasLoggedOut extends Component{
 			onMouseLeave={() => {this.mouse.pressed = false}}
 			width='600'
 			height='400'
-			ref="myCanvas" className="Canvas-style"/>
+			ref="myCanvas" className="Canvas-style logged-out"/>
+			<button className="logged-out" onClick={this._clearCanvas.bind(this)}> Clear</button>
+
 			</div>
 			)
 	}
