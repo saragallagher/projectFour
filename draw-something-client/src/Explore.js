@@ -17,8 +17,8 @@ class Explore extends Component {
   render(){
     const userDrawings = this.state.users.map((user, i) => {
 			return(
-        <div className="Canvas-Images" key={i}>
-          <img src={user.url}/>
+        <div className="Canvas-Images" key={i} >
+          <img src={user.url} alt=""/>
         {user.user.name}
       </div>
 			)

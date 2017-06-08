@@ -7,8 +7,8 @@ const
   usersRoutes = require('./routes/users.js'),
   drawingsRoutes = require('./routes/drawings.js'),
   cors = require('cors'),
-  mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/project04',
-  port = process.env.PORT || 3001
+  port = process.env.PORT || 3001,
+  mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/project04'
 
 mongoose.connect(mongoUrl, (err) => {
   console.log(err || 'Connected to MongoDB.')
@@ -17,6 +17,15 @@ mongoose.connect(mongoUrl, (err) => {
 app.use(logger('dev'))
 
 app.use(cors())
+
+// app.all('*', function(req, res, next){
+//   res.setHeader('Access-Controll-Allow-Orgin', '*')
+//   res.setHeader('Access-Controll-Allow-Methods', 'GET, POST, PATCH, DELETE')
+//   res.setHeader('Access-Controll-Allow-Headers', 'X-Requested-With, content-type')
+//   res.setHeader('Access-Controll-Allow-Credentials', true)
+//
+//   next()
+// })
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extedned: false}))

@@ -76,9 +76,9 @@ class App extends Component {
   render() {
 
     return (
-      <div className="App">
+      <div>
         <nav className="App-nav">
-
+          <span>Draw Somethin'</span>
           {this.state.loggedIn ? this.state.currentUser.name : ''}
           <button name='draw' onClick={this._setView.bind(this)}>Drawing Board</button>
           <button name='explore' onClick={this._setView.bind(this)}>Explore</button>
@@ -98,7 +98,7 @@ class App extends Component {
 
         </nav>
 
-        <h2 className="App-intro">Draw Somethin'</h2>
+        <div className="container">
         {{
           login: <LogIn onLogin={this._logIn.bind(this)} />,
           signup: <SignUp onSignup={this._signUp.bind(this)} />,
@@ -106,7 +106,7 @@ class App extends Component {
           draw: this.state.loggedIn ? <CanvasLoggedIn /> : <CanvasLoggedOut />,
           explore: <Explore />
         }[this.state.view]}
-
+      </div>
       </div>
     );
   }

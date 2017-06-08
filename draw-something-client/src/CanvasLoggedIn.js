@@ -117,36 +117,41 @@ class CanvasLoggedIn extends Component{
 		const styles = {background: 'rgb('+ this.state.red+ ',' + this.state.green+ ',' + this.state.blue+ ')' }
 		return(
 			<div ref="canvasContainer">
-			<canvas
-			onMouseDown={this.mousedown.bind(this)}
-			onMouseMove={this.mousemove.bind(this)}
-			onMouseUp={() => {this.mouse.pressed = false}}
-			onMouseLeave={() => {this.mouse.pressed = false}}
-			width='600'
-			height='400'
-			ref="myCanvas" className="Canvas-style"/>
-			<div className='Canvas-btn'>
-			<button onClick={this._clearCanvas.bind(this)}> Clear</button>
-			<button onClick={this._saveCanvasToProf.bind(this)}> Save to Profile</button>
-			<div>
-				<h2>Canvas ToolKit</h2>
-				Brush Size: <input onChange={() => {this.ctx.lineWidth= this.refs.brushSize.value}} ref="brushSize" type="range" min="0.5" max="20"/>
-				<br />
-				Brush Style:
-				<br />
-				Eraser:
-				<button onClick={() => {this.ctx.strokeStyle = 'white'}} >Eraser</button>
-				<br />
+				<div className="row">
+					<div className="five columns">
+						<h2>Canvas ToolKit</h2>
+						Brush Size: <input onChange={() => {this.ctx.lineWidth= this.refs.brushSize.value}} ref="brushSize" type="range" min="0.5" max="20"/>
+						<br />
+						{/* Brush Style:
+							<br /> */}
 
-				Brush Color:
-				<br/>
-				<div className="preview-color" style={styles}> </div>
-				R: <input onChange={this.red.bind(this)}ref="r" type="range" min="1" max="255"/>
-				G: <input onChange={this.green.bind(this)}ref="g" type="range" min="1" max="255"/>
-				B: <input onChange={this.blue.bind(this)}ref="b" type="range" min="1" max="255"/>
+							Brush Color:
+							<br/>
+							<div className="preview-color" style={styles}> </div>
+							R: <input onChange={this.red.bind(this)}ref="r" type="range" min="1" max="255"/>
+							<br/>
+							G: <input onChange={this.green.bind(this)}ref="g" type="range" min="1" max="255"/>
+							<br/>
+							
+							B: <input onChange={this.blue.bind(this)}ref="b" type="range" min="1" max="255"/>
+							<br />
 
-			</div>
+							<button onClick={() => {this.ctx.strokeStyle = 'white'}} >Eraser</button>
+							<button onClick={this._clearCanvas.bind(this)}> Clear</button>
+							<button onClick={this._saveCanvasToProf.bind(this)}> Save to Profile</button>
+						</div>
+				<div className="seven columns">
+					<canvas
+					onMouseDown={this.mousedown.bind(this)}
+					onMouseMove={this.mousemove.bind(this)}
+					onMouseUp={() => {this.mouse.pressed = false}}
+					onMouseLeave={() => {this.mouse.pressed = false}}
+					width='600'
+					height='400'
+					ref="myCanvas" className="Canvas-style"/>
 
+
+				</div>
 			</div>
 
 			<h2>My Drawings: </h2>

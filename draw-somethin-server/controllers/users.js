@@ -15,7 +15,7 @@ function index(req, res){
   User.findById(req.params.id, (err, users) => {
     Drawings.find({}).populate('user').exec((err,drawings) =>{
       if (err) return console.log(err)
-      res.json({users, drawings})
+      res.json({message: 'all users', users, drawings})
     })
   })
 }
