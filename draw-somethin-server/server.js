@@ -8,7 +8,7 @@ const
   drawingsRoutes = require('./routes/drawings.js'),
   cors = require('cors'),
   port = process.env.PORT || 3001,
-  mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/project04'
+  mongoUrl = process.env.MONGODB_URL || 'mongodb://localhost/project04'
 
 mongoose.connect(mongoUrl, (err) => {
   console.log(err || 'Connected to MongoDB.')
@@ -16,19 +16,13 @@ mongoose.connect(mongoUrl, (err) => {
 
 app.use(logger('dev'))
 
-app.use(cors())
-
-// app.all('*', function(req, res, next){
-//   res.setHeader('Access-Controll-Allow-Orgin', '*')
-//   res.setHeader('Access-Controll-Allow-Methods', 'GET, POST, PATCH, DELETE')
-//   res.setHeader('Access-Controll-Allow-Headers', 'X-Requested-With, content-type')
-//   res.setHeader('Access-Controll-Allow-Credentials', true)
-//
-//   next()
-// })
-
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extedned: false}))
+
+app.use(cors())
+
+
+
 
 app.get('/', (req, res) => {
   res.json({message: "Server root. All API routes start with /api"})

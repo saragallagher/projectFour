@@ -27,6 +27,8 @@ class Explore extends Component {
   return(
     <div>
       <h1>Explore All Drawings</h1>
+      <hr/>
+      
       {userDrawings}
     </div>
 

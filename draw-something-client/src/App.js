@@ -67,7 +67,7 @@ class App extends Component {
   _accountPref(user){
     clientAuth.updateCurrentUser(user,this.state.currentUser).then(res => {
       this.setState({
-        currentUser: user,
+        currentUser: res.data.user,
         view:'draw'
       })
     })

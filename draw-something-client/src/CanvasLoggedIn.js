@@ -84,6 +84,7 @@ class CanvasLoggedIn extends Component{
 			url: gh
 		}
 		clientAuth.addDrawing(newDrawing).then(res => {
+
 			this.setState({
 				drawings: [res.data.drawing, ...this.state.drawings]
 			})
@@ -100,6 +101,10 @@ class CanvasLoggedIn extends Component{
 			})
 		})
 	}
+	_editDrawing(drawing){
+		console.log(drawing)
+
+	}
 
 	render(){
 
@@ -109,7 +114,7 @@ class CanvasLoggedIn extends Component{
 				<div key={i} className="Canvas-Images" >
 				<img  src={drawing.url} alt="canvas-drawing" />
 				<button onClick={this._deleteDrawing.bind(this, drawing._id)}>Delete</button>
-				{/* <button onClick={this._editDrawing.bind(this, drawing._id)}>Edit</button> */}
+				<button onClick={this._editDrawing.bind(this, drawing)}>Edit</button>
 			</div>
 			)
 
@@ -120,6 +125,7 @@ class CanvasLoggedIn extends Component{
 				<div className="row">
 					<div className="five columns">
 						<h2>Canvas ToolKit</h2>
+					<hr/>
 						Brush Size: <input onChange={() => {this.ctx.lineWidth= this.refs.brushSize.value}} ref="brushSize" type="range" min="0.5" max="30"/>
 						<br />
 						{/* Brush Style:
@@ -155,6 +161,7 @@ class CanvasLoggedIn extends Component{
 			</div>
 
 			<h2>My Drawings: </h2>
+			<hr/>
 			{this.state.drawings.length === 0 ? "Oh no! You don't have any drawings yet, bummer.": drawings}
 
 			</div>

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 
-axios.defaults.baseURL = 'http://localhost:3001'
+axios.defaults.baseURL = 'https://desolate-river-36901.herokuapp.com/'|| 'http://localhost:3001'
 
 const clientAuth = {
 
@@ -54,6 +54,13 @@ const clientAuth = {
       data: updatedUser
     })
   },
+  // deleteCurrentUser: (id) =>{
+  //   console.log('current user', id)
+  //   return axios({
+  //     url: `api/users/${id}`,
+  //     method: 'delete'
+  //   })
+  // },
 
   logOut: () => {
     return new Promise((resolve) => {
@@ -83,6 +90,11 @@ const clientAuth = {
       method: 'post',
       data: newDrawing
     })
+  },
+
+  updateDrawing: (updatedDrawing) => {
+    console.log(updatedDrawing)
+    
   },
 
   deleteDrawing: (id) =>{
