@@ -1,6 +1,7 @@
  const
   User = require('../models/User.js'),
-  serverAuth = require('../config/serverAuth.js')
+  serverAuth = require('../config/serverAuth.js'),
+  Drawings = require('../models/Drawing.js')
 
 module.exports = {
   index,
@@ -11,8 +12,11 @@ module.exports = {
 }
 
 function index(req, res){
-  User.find({}, (err, users) => {
-    res.json(users)
+  User.findById(req.params.id, (err, users) => {
+    Drawings.find({}).populate('user').exec((err,drawings) =>{
+      if (err) return console.log(err)
+      res.json({users, drawings})
+    })
   })
 }
 

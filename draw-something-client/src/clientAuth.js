@@ -11,7 +11,12 @@ const clientAuth = {
       axios.defaults.headers.common['x-access-token'] = localStorage.getItem('token')
     }
   },
-
+  getAllUsers: () => {
+    return axios({
+      url: '/api/users',
+      method: 'get'
+    })
+  },
   signUp: (userInfo) => {
     return axios({
       url: '/api/users',

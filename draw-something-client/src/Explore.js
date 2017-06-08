@@ -1,33 +1,33 @@
 import React, { Component } from 'react'
 import clientAuth from './clientAuth'
+import './App.css'
+
 
 class Explore extends Component {
   state = {
-    drawings: []
+    users: []
   }
   componentDidMount(){
-    clientAuth.getAllDrawings().then(res => {
-			this.setState({
-				drawings: res.data
-			})
-		})
-    console.log(this.state.drawings)
+    clientAuth.getAllUsers().then(res => {
+      this.setState({
+        users: res.data.drawings
+      })
+    })
   }
   render(){
-    const drawings = this.state.drawings.map((drawing, i) => {
-      console.log(drawing.user)
+    const userDrawings = this.state.users.map((user, i) => {
 			return(
-				<div key={i} className="Canvas-Images" >
-				<img  src={drawing.url} alt="canvas-drawing" />
-				{/* <button onClick={this._editDrawing.bind(this, drawing._id)}>Edit</button> */}
-			</div>
+        <div className="Canvas-Images" key={i}>
+          <img src={user.url}/>
+        {user.user.name}
+      </div>
 			)
-
 		})
+
   return(
     <div>
       <h1>Explore All Drawings</h1>
-      {drawings}
+      {userDrawings}
     </div>
 
     )
