@@ -40,6 +40,11 @@ class CanvasLoggedOut extends Component{
 
 	render(){
 		return(
+			<div className="row">
+				<div className="five columns">
+					<h3>Welcome!</h3> <h4>If you want to access different brush sizes, colors, or if you want to save your masterpieces; create an account or login!</h4>
+				</div>
+				<div className="seven columns">
 			<div ref="canvasContainer">
 			<canvas
 			onMouseDown={this.mousedown.bind(this)}
@@ -52,6 +57,8 @@ class CanvasLoggedOut extends Component{
 			<button className="logged-out" onClick={this._clearCanvas.bind(this)}> Clear</button>
 
 			</div>
+			</div>
+		</div>
 			)
 	}
 }
