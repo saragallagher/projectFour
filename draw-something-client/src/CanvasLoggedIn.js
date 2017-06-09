@@ -174,8 +174,6 @@ class CanvasLoggedIn extends Component{
 					<hr/>
 						Brush Size: <input onChange={() => {this.ctx.lineWidth= this.refs.brushSize.value}} ref="brushSize" type="range" min="0.5" max="30"/>
 						<br />
-						{/* Brush Style:
-							<br /> */}
 							Brush Color:
 							<br/>
 							<div className="preview-color" style={styles}> </div>
