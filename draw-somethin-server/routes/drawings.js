@@ -29,6 +29,15 @@ drawingRouter.route('/')
   })
 
 drawingRouter.route('/:id')
+    .patch((req, res) => {
+      Drawing.findById(req.params.id, (err, drawing) => {
+        if(err) return console.log(err)
+        Object.assign(drawing, req.body)
+        drawing.save((err) => {
+          res.json({success: true, message: 'drawing updated', drawing})
+        })
+      })
+    })
     .delete((req, res) => {
       Drawing.findByIdAndRemove(req.params.id, (err, drawing) => {
         res.json({success: true, message: 'Drawing Deleted', drawing})

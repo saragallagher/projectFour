@@ -23,6 +23,15 @@ const clientAuth = {
       method: 'post',
       data: userInfo
     })
+    .then(res => {
+      if (res.data.token) {
+         localStorage.setItem('token', res.data.token)
+         clientAuth.setTokenHeader()
+         return jwt_decode(res.data.token)
+       } else {
+         return false
+       }
+    })
   },
 
   logIn: (credentials) => {
@@ -85,7 +94,7 @@ const clientAuth = {
   },
 
   addDrawing: (newDrawing) => {
-    console.log(newDrawing)
+    console.log("New Drawing", newDrawing)
     return axios({
       url: '/api/drawings',
       method: 'post',
@@ -94,13 +103,18 @@ const clientAuth = {
   },
 
   updateDrawing: (updatedDrawing) => {
-    console.log(updatedDrawing)
+    console.log(updatedDrawing.id)
+    return axios({
+      url: `/api/drawings/${updatedDrawing.id}`,
+      method: 'patch',
+      data: updatedDrawing
+    })
 
   },
 
   deleteDrawing: (id) =>{
     return axios({
-      url: `api/drawings/${id}`,
+      url: `/api/drawings/${id}`,
       method: 'delete'
     })
   }

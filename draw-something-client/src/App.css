@@ -452,9 +452,12 @@ img{
   height: 150px;
 }
 
+
+
 .Canvas-Images{
   display: inline-block;
   margin: 5px;
+  text-align: center;
 }
 
 .LogIn-Canvas{

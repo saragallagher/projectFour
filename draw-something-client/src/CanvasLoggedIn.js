@@ -12,9 +12,11 @@ class CanvasLoggedIn extends Component{
 			green: 0,
 			blue: 0,
 			currentUser: null,
+			editing: '',
+			currentEditing: {}
 		}
 	}
-
+	////////////////////////////////////////////////////////////////
 	componentDidMount(){
 		const currentUser = clientAuth.getCurrentUser()
 		var c = this.refs.myCanvas
@@ -32,26 +34,28 @@ class CanvasLoggedIn extends Component{
 			})
 		})
 	}
-
+	////////////////////////////////////////////////////////////////
 	red(){
 		this.setState({
 			red: this.refs.r.value
 		})
 		this.ctx.strokeStyle= 'rgb('+ this.state.red+ ',' + this.state.green+ ',' + this.state.blue+ ')'
 	}
+	////////////////////////////////////////////////////////////////
 	green(){
 		this.setState({
 			green: this.refs.g.value
 		})
 		this.ctx.strokeStyle= 'rgb('+ this.state.red+ ',' + this.state.green+ ',' + this.state.blue+ ')'
 	}
+	////////////////////////////////////////////////////////////////
 	blue(){
 		this.setState({
 			blue: this.refs.b.value
 		})
 		this.ctx.strokeStyle= 'rgb('+ this.state.red+ ',' + this.state.green+ ',' + this.state.blue+ ')'
 	}
-
+	////////////////////////////////////////////////////////////////
 	mousedown(evt){
 		const boundingRect = this.refs.myCanvas.getBoundingClientRect()
 		const x = evt.clientX- boundingRect.left
@@ -61,7 +65,7 @@ class CanvasLoggedIn extends Component{
 		this.ctx.beginPath()
 		this.ctx.moveTo(x,y)
 	}
-
+	////////////////////////////////////////////////////////////////
 	mousemove(evt){
 		if(this.mouse.pressed){
 			const boundingRect = this.refs.myCanvas.getBoundingClientRect()
@@ -72,14 +76,14 @@ class CanvasLoggedIn extends Component{
 			this.ctx.stroke()
 		}
 	}
-
+	////////////////////////////////////////////////////////////////
 	_clearCanvas(){
 		this.ctx.save()
 		this.ctx.clearRect(0,0, this.c.width, this.c.height)
 	}
+	////////////////////////////////////////////////////////////////
 	_saveCanvasToProf(){
 		var gh = this.c.toDataURL('image/png')
-		console.log(gh)
 		const newDrawing = {
 			url: gh
 		}
@@ -101,25 +105,67 @@ class CanvasLoggedIn extends Component{
 			})
 		})
 	}
-	_editDrawing(drawing){
-		console.log(drawing)
-
+	////////////////////////////////////////////////////////////////
+	_setEditDrawing(drawing){
+		if(this.state.editing === drawing._id){
+			this.setState({editing: null})
+		} else{
+			var background = new Image()
+			background.src = drawing.url
+			this.ctx.drawImage(background,0,0)
+			this.setState({
+				editing: drawing._id,
+				currentEditing: drawing
+			})
+		}
 	}
-
+	////////////////////////////////////////////////////////////////
+	_updateDrawing(){
+		var gh = this.c.toDataURL('image/png')
+		const updatedDrawing = {
+			url: gh,
+			id: this.state.editing
+		}
+		clientAuth.updateDrawing(updatedDrawing).then((res) => {
+			console.log("response",res)
+      const drawIndex = this.state.drawings.findIndex((drawing) => {
+        return drawing._id === updatedDrawing.id
+      })
+      this.setState({
+        drawings: [
+          ...this.state.drawings.slice(0, drawIndex),
+          res.data.drawing,
+          ...this.state.drawings.slice(drawIndex + 1)
+        ],
+				editing: null,
+				currentEditing: {},
+      })
+    })
+		this.ctx.save()
+		this.ctx.clearRect(0,0, this.c.width, this.c.height)
+	}
+	////////////////////////////////////////////////////////////////
 	render(){
-
+		////////////////////////////////////////////////////////////////
 		const drawings = this.state.drawings.map((drawing, i) => {
 			return(
-
 				<div key={i} className="Canvas-Images" >
 				<img  src={drawing.url} alt="canvas-drawing" />
 				<button onClick={this._deleteDrawing.bind(this, drawing._id)}>Delete</button>
-				<button onClick={this._editDrawing.bind(this, drawing)}>Edit</button>
+				<button onClick={this._setEditDrawing.bind(this, drawing)}>Edit</button>
 			</div>
 			)
-
 		})
+		////////////////////////////////////////////////////////////////
+		var canvasButton
+    if(this.state.editing){
+      canvasButton = <button onClick={this._updateDrawing.bind(this)}>Update Your Master Piece</button>
+    } else {
+      canvasButton =<button onClick={this._saveCanvasToProf.bind(this)}>Save Your Master Piece</button>
+    }
+		////////////////////////////////////////////////////////////////
 		const styles = {background: 'rgb('+ this.state.red+ ',' + this.state.green+ ',' + this.state.blue+ ')' }
+		////////////////////////////////////////////////////////////////
 		return(
 			<div ref="canvasContainer">
 				<div className="row">
@@ -130,7 +176,6 @@ class CanvasLoggedIn extends Component{
 						<br />
 						{/* Brush Style:
 							<br /> */}
-
 							Brush Color:
 							<br/>
 							<div className="preview-color" style={styles}> </div>
@@ -141,10 +186,10 @@ class CanvasLoggedIn extends Component{
 
 							B: <input onChange={this.blue.bind(this)}ref="b" type="range" min="1" max="255"/>
 							<br />
-
 							<button onClick={() => {this.ctx.strokeStyle = 'white'}} >Eraser</button>
 							<button onClick={this._clearCanvas.bind(this)}> Clear</button>
-							<button onClick={this._saveCanvasToProf.bind(this)}> Save to Profile</button>
+							{/* <button onClick={this._saveCanvasToProf.bind(this)}> Save to Profile</button> */}
+							{canvasButton}
 						</div>
 				<div className="seven columns">
 					<canvas
@@ -155,8 +200,6 @@ class CanvasLoggedIn extends Component{
 					width='600'
 					height='400'
 					ref="myCanvas" className="Canvas-style"/>
-
-
 				</div>
 			</div>
 
