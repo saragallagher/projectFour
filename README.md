@@ -32,7 +32,7 @@ Draw Somethin' is a drawing app where users can create, edit, and delete their d
 3. run ``npm install`` in the terminal
 
 ##Wireframes:
-![wireframe](wireframe.png)
+![wireframe](https://www.gliffy.com/go/share/image/sju11olcoew8agdns0sn.png?utm_medium=live-embed&utm_source=custom)
 
 ###Major Hurdles:
 - Getting the image update functionality working

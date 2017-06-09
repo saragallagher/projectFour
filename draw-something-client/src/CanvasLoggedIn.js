@@ -96,6 +96,7 @@ class CanvasLoggedIn extends Component{
 		this.ctx.save()
 		this.ctx.clearRect(0,0, this.c.width, this.c.height)
 	}
+	////////////////////////////////////////////////////////////////
 	_deleteDrawing(id){
 		clientAuth.deleteDrawing(id).then(res => {
 			this.setState({
